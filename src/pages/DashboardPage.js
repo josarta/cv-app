@@ -32,6 +32,7 @@ class DashboardPage extends React.Component {
       iso3: "COL",
       paisItemsTotalesFormateados: {},
       paisItemsTotales: {},
+      center:[],
     };
   }
 
@@ -106,7 +107,8 @@ class DashboardPage extends React.Component {
         this.setState({
           nombrePaisActual:json[0].countryregion,
           paisItems: json[0],
-          paisItemsTotalesFormateados: paisItemsTotalesFormateados
+          paisItemsTotalesFormateados: paisItemsTotalesFormateados,
+          center:[json[0].location.lng,json[0].location.lat]
         })
       })
       .catch(error => {
@@ -234,7 +236,7 @@ class DashboardPage extends React.Component {
                 Casos confirmados acumulados
               </CardHeader>
               <CardBody>
-                <MapWithBubbles nombrePaisActual={this.state.nombrePaisActual} />
+                <MapWithBubbles cordenadasPais={this.state.center} nombrePaisActual={this.state.nombrePaisActual} />
               </CardBody>
             </Card>
           </Col>

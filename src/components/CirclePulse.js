@@ -20,7 +20,7 @@ const CirclePulse = ({ color, pulseColor , r }) => {
             className="circle-pulse pulse"
             cx="50%"
             cy="50%"
-            r="15px"
+            r="25px"
           />
         </svg>
       </g>
