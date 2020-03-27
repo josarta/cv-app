@@ -1,0 +1,27 @@
+.circle-pulse {
+    stroke:greenyellow; 
+    stroke-width: 2px;
+    stroke-opacity: 1;
+  }
+  
+  .pulse {
+    fill: rgb(248, 248, 248);
+    fill-opacity: 0;
+    transform-origin: 50% 50%;
+    animation-duration: 2s;
+    animation-name: pulse;
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes pulse {
+    from {
+      stroke-width: 3px;
+      stroke-opacity: 1;
+      transform: scale(0.3);
+    }
+    to {
+      stroke-width: 0;
+      stroke-opacity: 0;
+      transform: scale(2);
+    }
+  }
