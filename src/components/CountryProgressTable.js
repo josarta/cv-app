@@ -14,6 +14,9 @@ const CountryProgressTable = ({
 
   useEffect(() => {
     document.getElementById('tr-'+post).classList.add('bg-primary');
+    var x = document.getElementsByClassName("table-responsive")
+    var el = x[0];
+    el.scrollTop = 1885;
   });
 
  
@@ -36,7 +39,7 @@ const CountryProgressTable = ({
         </tr>
       </thead>
     </Table>
-    <Table responsive hover {...restProps}>
+    <Table id="oscuridad" responsive hover {...restProps}>
       <tbody>
         {countryData.map(({ countryregion, image, location, countrycode }, index) => (
           <tr key={index} id={'tr-'+index} onClick={e => selectRow(e, countrycode , index)} >

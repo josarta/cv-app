@@ -91,7 +91,7 @@ class BubbleMap extends Component {
         }}
       >
         <ZoomableGroup zoom={zoom} center={this.props.cordenadasPais} disablePanning>
-          <Geographies geography={world50m} disableOptimization>
+          <Geographies geography={world50m}>
             {(geographies, projection) =>
               geographies.map(
                 (geography, i) =>
