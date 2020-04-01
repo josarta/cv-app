@@ -2,6 +2,7 @@ import MapWithBubbles from 'components/MapWithBubbles';
 import Page from 'components/Page';
 import CountryProgressTable from 'components/CountryProgressTable';
 import { IconWidget, NumberWidget } from 'components/Widget';
+import { Line, Pie, Doughnut, Bar, Radar, Polar } from 'react-chartjs-2';
 import React from 'react';
 import {
   MdSentimentSatisfied,
@@ -17,13 +18,18 @@ import {
   Col,
   Row,
 } from 'reactstrap';
+
+import { getColor } from 'utils/colors';
+import { randomNum } from 'utils/demos';
 import { countryProgressTableData } from 'demos/dashboardCountry';
+
+
 
 class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nombrePaisActual:"Colombia",
+      nombrePaisActual: "Colombia",
       paisItemsOrdenados: [],
       paisItems: {},
       itemsTotalesFormateados: {},
@@ -32,24 +38,32 @@ class DashboardPage extends React.Component {
       iso3: "COL",
       paisItemsTotalesFormateados: {},
       paisItemsTotales: {},
-      center:[],
+      center: [],
+      months: [],
+      dataConfirmados: [],
+      dataMuertes: [],
+      dataRecuperados: [],
     };
   }
+
 
   callback = (countrycode) => {
     let url = 'https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest';
     let iso = 'iso3';
     let valueIso = countrycode.iso3;
     const request1 = new Request(
-      url + '?' + iso + '=' + valueIso, {
+      url + '?' + iso + '=' + valueIso + '&onlyCountries=true', {
       method: 'GET',
     });
     this.cargaIsoTotales(request1);
+    this.cargaGraficaUno(valueIso);
+    window.scrollTo(0, 0);
   }
 
   handleResponseError(response) {
     throw new Error("HTTP error, status = " + response.status);
   }
+
   handleError(error) {
     console.log(error.message);
   }
@@ -105,10 +119,10 @@ class DashboardPage extends React.Component {
           "recovered": json[0].hasOwnProperty('recovered') ? json[0].recovered.toLocaleString() : "0"
         };
         this.setState({
-          nombrePaisActual:json[0].countryregion,
+          nombrePaisActual: json[0].countryregion,
           paisItems: json[0],
           paisItemsTotalesFormateados: paisItemsTotalesFormateados,
-          center:[json[0].location.lng,json[0].location.lat]
+          center: [json[0].location.lng, json[0].location.lat]
         })
       })
       .catch(error => {
@@ -132,6 +146,48 @@ class DashboardPage extends React.Component {
     });
   }
 
+
+  cargaSeriesMeses(request) {
+    fetch(request)
+      .then(response => {
+        if (!response.ok) {
+          this.handleResponseError(response);
+        }
+        return response.json();
+      })
+      .then(json => {
+        console.log("Series == >> "+ JSON.stringify(json[0].timeseries))
+        let _dataConfirmados = [];
+        let _dataMuertes = [];
+        let _dataRecuperados = [];
+        let _months = [];
+        let _pos = 0;
+        for(var k in json[0].timeseries) {
+          _months[_pos] = k
+          _dataConfirmados[_pos] = json[0].timeseries[k].confirmed
+          _dataMuertes[_pos] = json[0].timeseries[k].deaths
+          _dataRecuperados[_pos] = json[0].timeseries[k].recovered
+          _pos++;
+        }
+        this.setState({months:_months,dataConfirmados:_dataConfirmados,dataMuertes:_dataMuertes,dataRecuperados:_dataRecuperados}) 
+      })
+      .catch(error => {
+        this.handleError(error);
+      });
+  }
+
+
+  cargaGraficaUno(pais_iso) {
+    let url = 'https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries';
+    let iso = 'iso3';
+    let valueIso = pais_iso;
+    const request1 = new Request(
+      url + '?' + iso + '=' + valueIso + '&onlyCountries=true', {
+      method: 'GET',
+    });
+    this.cargaSeriesMeses(request1);
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0);
     const request = new Request('https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/brief', {
@@ -139,9 +195,61 @@ class DashboardPage extends React.Component {
     });
     this.cargaValoresTotales(request);
     this.ordenarAscTable(countryProgressTableData, 'countryregion', 'asc');
+    this.cargaGraficaUno("COL");
   }
 
   render() {
+    const MONTHS = this.state.months;
+
+    const genLineDataCo = (moreData = {}) => {
+      return {
+        labels: MONTHS,
+        datasets: [
+          {
+            label: 'Historico confirmados',
+            backgroundColor: getColor('primary'),
+            borderColor: getColor('primary'),
+            borderWidth: 1,
+            data: this.state.dataConfirmados,
+            ...moreData,
+          },
+        ],
+      };
+    };
+
+
+    const genLineDataMu = (moreData2 = {}) => {
+      return {
+        labels: MONTHS,
+        datasets: [
+          {
+            label: 'Historico muertes',
+            backgroundColor: getColor('danger'),
+            borderColor: getColor('danger'),
+            borderWidth: 1,
+            data: this.state.dataMuertes,
+            ...moreData2,
+          },
+        ],
+      };
+    };
+
+    const genLineDataRe = (moreData3 = {}) => {
+      return {
+        labels: MONTHS,
+        datasets: [
+          {
+            label: 'Historico recuperados',
+            backgroundColor: getColor('success'),
+            borderColor: getColor('success'),
+            borderWidth: 1,
+            data: this.state.dataRecuperados,
+            ...moreData3,
+          },
+        ],
+      };
+    };
+
     return (
       <Page
         className="DashboardPage"
@@ -180,6 +288,33 @@ class DashboardPage extends React.Component {
               valor={this.state.paisItemsTotalesFormateados.recovered}
               subtitle="Total recuperados"
             />
+          </Col>
+        </Row>
+
+
+        <Row>
+          <Col xl={4} lg={12} md={12}>
+            <Card>
+              <CardBody>
+              <Line data={genLineDataCo({ fill: false })} />
+              </CardBody>
+            </Card>
+          </Col>
+
+          <Col xl={4} lg={12} md={12}>
+            <Card>
+              <CardBody>
+              <Line data={genLineDataMu({ fill: false })} />
+              </CardBody>
+            </Card>
+          </Col>
+
+          <Col xl={4} lg={12} md={12}>
+            <Card>
+              <CardBody>
+              <Line data={genLineDataRe({ fill: false })} />
+              </CardBody>
+            </Card>
           </Col>
         </Row>
 
@@ -241,20 +376,20 @@ class DashboardPage extends React.Component {
             </Card>
           </Col>
           <Col lg="4" md="12" sm="12" xs="12">
-          <Card>
-            <CardHeader>Seleccione un país</CardHeader>
-            <CardBody  >
-              <CountryProgressTable
-                headers={[
-                  'Pais',
-                  <MdPlace size={25} />,
-                ]}
-                countryData={countryProgressTableData}
-                parentCallback={this.callback}
-              />
-            </CardBody>
-          </Card>
-        </Col>
+            <Card>
+              <CardHeader>Seleccione un país</CardHeader>
+              <CardBody  >
+                <CountryProgressTable
+                  headers={[
+                    'Pais',
+                    <MdPlace size={25} />,
+                  ]}
+                  countryData={countryProgressTableData}
+                  parentCallback={this.callback}
+                />
+              </CardBody>
+            </Card>
+          </Col>
         </Row>
       </Page>
     );

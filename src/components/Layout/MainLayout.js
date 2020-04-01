@@ -95,7 +95,8 @@ class MainLayout extends React.Component {
       <main className="cr-app bg-light">
         <Sidebar />
         <Content fluid onClick={this.handleContentClick}>
-          <Header/>
+          {/* <Header/> */}
+          <br/>
           {children}
           <Footer />
         </Content>

@@ -91,7 +91,7 @@ class Header extends React.Component {
         return response.json();
       })
       .then(json => {
-
+        console.log("p_data == :S " + JSON.stringify(json[0]))
         let f = new Date();
         let dia = (f.getDate() < 10 ? '0' : '') + f.getDate();
         let mes = ((f.getMonth() + 1) < 10 ? '0' : '') + (f.getMonth() + 1);

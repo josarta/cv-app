@@ -18,9 +18,7 @@ const cityScale = scaleLinear()
 
 class BubbleMap extends Component {
   state = {
-    paisItems: [],
-    markers: [],
-    zoom: 3,
+    paisItems: []
   };
 
 
@@ -70,12 +68,7 @@ class BubbleMap extends Component {
   }
 
   render() {
-    const {
-      zoom,
-      center,
-      markers,
-      paisItems,
-    } = this.state
+
 
     const secondaryColor = getColor('secondary');
     const lightColor = getColor('light');
@@ -90,7 +83,7 @@ class BubbleMap extends Component {
           height: 'auto',
         }}
       >
-        <ZoomableGroup zoom={zoom} center={this.props.cordenadasPais} disablePanning>
+        <ZoomableGroup zoom="3" center={this.props.cordenadasPais} disablePanning>
           <Geographies geography={world50m}>
             {(geographies, projection) =>
               geographies.map(
@@ -117,7 +110,7 @@ class BubbleMap extends Component {
                         pressed: {
                           fill: secondaryColor,
                           stroke: secondaryColor,
-                          strokeWidth: 0.75,
+                          strokeWidth: 0.5,
                           outline: 'none',
                         },
                       }}
@@ -154,5 +147,9 @@ class BubbleMap extends Component {
     );
   }
 }
+
+BubbleMap.defaultProps = {
+  cordenadasPais:[0,0]
+};
 
 export default BubbleMap;

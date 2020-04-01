@@ -14,16 +14,17 @@ const CountryProgressTable = ({
 
   useEffect(() => {
     document.getElementById('tr-'+post).classList.add('bg-primary');
-    var x = document.getElementsByClassName("table-responsive")
-    var el = x[0];
-    el.scrollTop = 1885;
-  });
+    if(post == 32){
+      var x = document.getElementsByClassName("table-responsive")
+      var el = x[0];
+      el.scrollTop = 1885;
+    }
+   });
 
  
 
   const selectRow = (e, countrycode , index) => {
     e.preventDefault();
-    console.log('Resultado countryregion --> ' + countrycode);
     document.getElementById('tr-'+post).classList.remove('bg-primary');
     document.getElementById('tr-'+index).classList.add('bg-primary');
     setPost(index);
