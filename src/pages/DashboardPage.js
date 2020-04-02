@@ -23,8 +23,6 @@ import { getColor } from 'utils/colors';
 import { randomNum } from 'utils/demos';
 import { countryProgressTableData } from 'demos/dashboardCountry';
 
-
-
 class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
@@ -79,14 +77,21 @@ class DashboardPage extends React.Component {
       .then(json => {
         let itemsTotalesFormateados =
         {
-          "confirmed": json.hasOwnProperty('confirmed') ? json.confirmed.toLocaleString() : "0",
-          "deaths": json.hasOwnProperty('deaths') ? json.deaths.toLocaleString() : "0",
-          "recovered": json.hasOwnProperty('recovered') ? json.recovered.toLocaleString() : "0"
+          "confirmed": json.hasOwnProperty('confirmed') ? json.confirmed.toLocaleString('en-US') : "0",
+          "deaths": json.hasOwnProperty('deaths') ? json.deaths.toLocaleString('en-US') : "0",
+          "recovered": json.hasOwnProperty('recovered') ? json.recovered.toLocaleString('en-US'): "0"
+        };
+
+        let _json =
+        {
+          "confirmed": json.hasOwnProperty('confirmed') ? json.confirmed : "0",
+          "deaths": json.hasOwnProperty('deaths') ? json.deaths : "0",
+          "recovered": json.hasOwnProperty('recovered') ? json.recovered : "0"
         };
 
         this.setState({
           itemsTotalesFormateados: itemsTotalesFormateados,
-          itemsTotales: json
+          itemsTotales: _json
         })
         let url = 'https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest';
         let iso = 'iso3';
@@ -114,10 +119,11 @@ class DashboardPage extends React.Component {
       .then(json => {
         let paisItemsTotalesFormateados =
         {
-          "confirmed": json[0].hasOwnProperty('confirmed') ? json[0].confirmed.toLocaleString() : "0",
-          "deaths": json[0].hasOwnProperty('deaths') ? json[0].deaths.toLocaleString() : "0",
-          "recovered": json[0].hasOwnProperty('recovered') ? json[0].recovered.toLocaleString() : "0"
+          "confirmed": json[0].hasOwnProperty('confirmed') ? json[0].confirmed.toLocaleString('en-US') : "0",
+          "deaths": json[0].hasOwnProperty('deaths') ? json[0].deaths.toLocaleString('en-US') : "0",
+          "recovered": json[0].hasOwnProperty('recovered') ? json[0].recovered.toLocaleString('en-US') : "0"
         };
+        
         this.setState({
           nombrePaisActual: json[0].countryregion,
           paisItems: json[0],
@@ -156,7 +162,6 @@ class DashboardPage extends React.Component {
         return response.json();
       })
       .then(json => {
-        console.log("Series == >> "+ JSON.stringify(json[0].timeseries))
         let _dataConfirmados = [];
         let _dataMuertes = [];
         let _dataRecuperados = [];
@@ -326,7 +331,7 @@ class DashboardPage extends React.Component {
               number={this.state.itemsTotalesFormateados.confirmed}
               color="primary"
               progress={{
-                value: Number.parseFloat((this.state.paisItemsTotalesFormateados.confirmed * 100) / this.state.itemsTotales.confirmed).toFixed(4)
+                value: Number.parseFloat((this.state.paisItems.confirmed * 100) / this.state.itemsTotales.confirmed).toFixed(4)
                 ,
                 label: 'Casos ' + this.state.paisItems.countryregion
                   + ' % Casos globales',
@@ -342,7 +347,7 @@ class DashboardPage extends React.Component {
               number={this.state.itemsTotalesFormateados.deaths}
               color="danger"
               progress={{
-                value: (Number.parseFloat(this.state.paisItemsTotalesFormateados.deaths * 100) / this.state.itemsTotales.deaths).toFixed(4),
+                value: (Number.parseFloat(this.state.paisItems.deaths * 100) / this.state.itemsTotales.deaths).toFixed(4),
                 label: 'Casos ' + this.state.paisItems.countryregion
                   + ' % Casos globales',
               }}
@@ -356,7 +361,7 @@ class DashboardPage extends React.Component {
               number={this.state.itemsTotalesFormateados.recovered}
               color="success"
               progress={{
-                value: (Number.parseFloat(this.state.paisItemsTotalesFormateados.recovered * 100) / this.state.itemsTotales.recovered).toFixed(4),
+                value: (Number.parseFloat(this.state.paisItems.recovered * 100) / this.state.itemsTotales.recovered).toFixed(4),
                 label: 'Casos ' + this.state.paisItems.countryregion
                   + ' % Casos globales',
               }}
