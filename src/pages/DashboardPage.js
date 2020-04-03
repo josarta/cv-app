@@ -3,6 +3,12 @@ import Page from 'components/Page';
 import CountryProgressTable from 'components/CountryProgressTable';
 import { IconWidget, NumberWidget } from 'components/Widget';
 import { Line, Pie, Doughnut, Bar, Radar, Polar } from 'react-chartjs-2';
+import Chat from 'components/Chat';
+import Autores from 'components/Autores';
+import Alerta from 'components/Alerta';
+
+
+
 import React from 'react';
 import {
   MdSentimentSatisfied,
@@ -203,6 +209,7 @@ class DashboardPage extends React.Component {
     this.cargaGraficaUno("COL");
   }
 
+
   render() {
     const MONTHS = this.state.months;
 
@@ -261,6 +268,7 @@ class DashboardPage extends React.Component {
         title={this.state.paisItems.countryregion + ' - ' + 'Seguimiento de coronavirus'}
         breadcrumbs={[{ name: 'Mapa', active: true }]}
       >
+             <Alerta/>
         <Row>
           <Col lg={4} md={6} sm={6} xs={12}>
             <IconWidget
@@ -368,9 +376,10 @@ class DashboardPage extends React.Component {
             />
           </Col>
         </Row>
-
+       
         <Row>
           <Col lg="8" md="12" sm="12" xs="12">
+      
             <Card inverse className="bg-gradient-primary">
               <CardHeader className="bg-gradient-primary">
                 Casos confirmados acumulados
@@ -396,7 +405,15 @@ class DashboardPage extends React.Component {
             </Card>
           </Col>
         </Row>
+     
+        <Row>
+        <Chat/>
+        </Row>
+
+        <Autores/>
       </Page>
+
+     
     );
   }
 }

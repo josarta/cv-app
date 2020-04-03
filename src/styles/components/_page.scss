@@ -50,7 +50,7 @@ table.table {
   margin-bottom: 0px;
 }
 div.table-responsive{
-  overflow-y: auto; height: 456px; 
+  overflow-y: auto; height: 440px; 
 }
 
 .card-title{
@@ -101,4 +101,36 @@ div.table-responsive{
     stroke-opacity: 0;
     transform: scale(2);
   }
+}
+
+.rcw-message{
+  font-size: 11px;
+}
+
+.rcw-header{
+  background-color:#35cce6;
+}
+
+.doc-img {
+  width: 25%;
+}
+.al-fin{
+  text-align: end;
+}
+.a-efecto:hover{
+  text-decoration: none;
+}
+
+// .rcw-widget-container {
+//   margin: 0 25px 100px 0 !important;
+// }
+
+.alineacion-nav{
+    text-align: end;
+    display: inline-block;
+    list-style-type: none;
+}
+
+a.social-icon {
+  margin-left: 2px;
 }

@@ -31,8 +31,9 @@ class MainLayout extends React.Component {
         return;
       }
       this.notificationSystem.addNotification({
-        title: <MdThumbUp />,
-        message: 'La solucion està en tus manos -  Todos contra el coronavirus',
+        title: <MdLoyalty />,
+        message:
+          'La solucion està en tus manos -  Todos contra el coronavirus',
         level: 'info',
       });
     }, 1500);
@@ -42,12 +43,13 @@ class MainLayout extends React.Component {
         return;
       }
       this.notificationSystem.addNotification({
-        title: <MdLoyalty />,
-        message:
-          '#QuédateEnCasa, #YoMeQuedoEnCasa, #BajarLaCurva',
+        title: <MdThumbUp />,
+        message: '#QuédateEnCasa, #YoMeQuedoEnCasa, #BajarLaCurva',
         level: 'info',
       });
     }, 2500);
+
+
 
   }
 
