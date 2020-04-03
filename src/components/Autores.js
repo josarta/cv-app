@@ -30,7 +30,7 @@ const Autores = () => {
             <CardBody>
               <CardTitle>Dr Covid</CardTitle>
               <CardText className="al-fin">
-              Excelente contribucion, sigue su increible trabajo <SocialIcon target='_blank' url="https://www.facebook.com/drcovidcol/" />
+              Excelente contribucion, sigue este increible trabajo <SocialIcon target='_blank' url="https://www.facebook.com/drcovidcol/" />
               </CardText>
             </CardBody>
           </CardLink>
