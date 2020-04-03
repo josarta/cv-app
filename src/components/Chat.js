@@ -40,6 +40,8 @@ class Chat extends Component {
 
 handleQuickButtonClicked = (e) => {
   addResponseMessage('Jose Luis tu ' + e);
+  toggleMsgLoader();  
+  toggleInputDisabled();
   setQuickButtons([]);
 }
 

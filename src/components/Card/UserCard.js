@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'utils/propTypes';
+import { SocialIcon } from 'react-social-icons';
 
 import classNames from 'classnames';
 
@@ -27,6 +28,9 @@ const UserCard = ({
         <CardSubtitle>{subtitle}</CardSubtitle>
         <CardText>
           <small>{text}</small>
+          <SocialIcon target='_blank' url="https://twitter.com/josarta?lang=es" />
+          <SocialIcon target='_blank' url="https://github.com/josarta" />
+          <SocialIcon target='_blank' url="https://www.linkedin.com/in/josarta/" />
         </CardText>
       </CardBody>
       {children}

@@ -37,18 +37,16 @@ const Autores = () => {
         </Col>
 
         <Col md={6} sm={6} xs={12} className="mb-3">
-          <a target='_blank' className="a-efecto" href="https://www.linkedin.com/in/josarta/">
         <UserCard
             avatar={bg18Image}
             avatarSize={110}
             title="Desarrollador"
             subtitle="Jose Luis Sarta Alvarez."
-            text="Encuentrame @josarta"
+            text="Encuentrame "
             style={{
               height: 300,
             }}
           />
-          </a>
         </Col>
       </Row>
 
