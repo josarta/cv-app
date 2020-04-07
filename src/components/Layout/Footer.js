@@ -5,6 +5,7 @@ import { Navbar, Nav, NavItem } from 'reactstrap';
 
 import SourceLink from 'components/SourceLink';
 
+
 const Footer = () => {
   return (
     <Navbar className="alineacion-nav" >
@@ -14,7 +15,9 @@ const Footer = () => {
         2020 Seguimiento de coronavirus <SourceLink>COVID-19</SourceLink>
           </NavItem>
       </Nav>
+
     </Navbar>
+    
   );
 };
 
