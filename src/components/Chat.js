@@ -28,11 +28,11 @@ class Chat extends Component {
     let isLoggedIn = this.state.activo;
     
     if(isLoggedIn){
-      addLinkSnippet ({
-        title: 'Estoy en facebook',
-        link: 'https://www.facebook.com/drcovidcol/',
-        target: '_blank'
-      })
+      // addLinkSnippet ({
+      //   title: 'Estoy en facebook',
+      //   link: 'https://www.facebook.com/drcovidcol/',
+      //   target: '_blank'
+      // })
      this.setState({activo:false})
     }
    
@@ -55,7 +55,7 @@ handleNewUserMessage = (newMessage) => {
       } else {
         client.textRequest(newMessage).then(this.onSuccess.bind(this))
       }
-    }, 1000);
+    }, 5000);
   }
 
 
