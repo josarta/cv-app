@@ -24,7 +24,7 @@ const Autores = () => {
   return (
    
        <Row>
-        <Col md={6} sm={6} xs={12} className="mb-3">
+        {/* <Col md={6} sm={6} xs={12} className="mb-3">
           <CardLink target='_blank' href="http://qbk.zaitaniaingenieria.com">
             <CardImg className="doc-img" top src={bg11Image} />
             <CardBody>
@@ -34,9 +34,9 @@ const Autores = () => {
               </CardText>
             </CardBody>
           </CardLink>
-        </Col>
+        </Col> */}
 
-        <Col md={6} sm={6} xs={12} className="mb-3">
+        <Col md={12} sm={12} xs={12} className="mb-3">
         <UserCard
             avatar={bg18Image}
             avatarSize={110}

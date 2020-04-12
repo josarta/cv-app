@@ -408,9 +408,8 @@ class DashboardPage extends React.Component {
      
         {/* <Row>
         <Chat/>
-        </Row> 
-
-        <Autores/>*/}
+        </Row> */}
+        <Autores/>
       </Page>
 
      
