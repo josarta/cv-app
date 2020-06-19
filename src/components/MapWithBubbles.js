@@ -35,7 +35,7 @@ class BubbleMap extends Component {
       arraycity.push({ 
           "name"    : city.countryregion,
           "coordinates"  : [city.location.lng,city.location.lat],
-          "population"    : city.hasOwnProperty('confirmed')  ? (city.confirmed * 200) : 0 
+          "population"    : city.hasOwnProperty('confirmed')  ? (city.confirmed) : 0 
       });
   }
   this.setState({paisItems:arraycity})
