@@ -29,7 +29,7 @@
     "react-sizeme": "^2.5.2",
     "react-social-icons": "^4.1.0",
     "reactstrap": "^7.1.0",
-    "victory": "^32.0.0"
+    "victory": "^37.3.6"
   },
   "devDependencies": {
     "gh-pages": "^1.2.0",
