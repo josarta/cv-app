@@ -8,7 +8,7 @@
     "chart.js": "2.7.2",
     "classnames": "^2.2.6",
     "d3-geo": "^1.11.3",
-    "dialogflow": "^1.2.0",
+    "dialogflow": "^4.0.3",
     "dialogflow-tools": "0.0.2",
     "faker": "^4.1.0",
     "prop-types": "^15.7.2",
